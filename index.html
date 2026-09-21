@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duarte & Vero · 17.07.2027</title>
+<meta name="description" content="Duarte & Vero · 17 de julio de 2027">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=Parisienne&display=swap');
+:root{--paper:#f1ede4;--paper2:#e5dfd2;--ink:#25261f;--muted:#77776e;--olive:#56614d;--dark:#30382d;--line:rgba(37,38,31,.15);--white:#fbfaf6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;font-weight:300}a{color:inherit;text-decoration:none}
+.hero{height:100svh;min-height:650px;position:relative;display:flex;align-items:flex-end;overflow:hidden;background:#20251f}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.15) 70%),url("img/foto1.jpg");background-size:cover;background-position:center 38%;transform:scale(1.03);animation:heroZoom 16s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1.02)}}
+.hero-content{position:relative;z-index:2;color:#fff;padding:7vw;max-width:900px}
+.eyebrow{font-size:9px;letter-spacing:.45em;text-transform:uppercase;margin-bottom:28px}
+.names{font:300 clamp(72px,11vw,155px)/.72 "Cormorant Garamond",serif;letter-spacing:-.045em;margin:0}
+.names span{display:block}.amp{font-style:italic;font-size:.55em}
+.datehero{margin-top:38px;font:400 18px "Cormorant Garamond",serif;letter-spacing:.28em}
+.script{font:400 32px "Parisienne",cursive;margin-top:25px}
+.hero-bottom{position:absolute;z-index:3;bottom:32px;left:7vw;right:7vw;display:flex;justify-content:space-between;color:#fff;font-size:8px;letter-spacing:.28em;text-transform:uppercase}
+.scroll{border-bottom:1px solid rgba(255,255,255,.6);padding-bottom:5px}
+nav{position:absolute;z-index:4;top:0;left:0;right:0;padding:23px 5vw;display:flex;justify-content:center;gap:30px;color:white;font-size:8px;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(rgba(0,0,0,.28),transparent)}
+section{padding:115px 24px}.wrap{max-width:1120px;margin:auto}.center{text-align:center}
+.kicker{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--olive);margin-bottom:20px}
+h2{font:400 clamp(58px,7vw,92px)/.82 "Cormorant Garamond",serif;letter-spacing:-.02em;margin:0}
+.lead{max-width:620px;margin:30px auto 0;font-size:14px;line-height:2;color:#686861}
+.intro{position:relative;background:var(--paper)}
+.intro:before{content:"";position:absolute;left:0;top:40px;width:180px;height:180px;border:1px solid rgba(86,97,77,.2);border-radius:50%}
+.story-intro{font:400 30px "Parisienne",cursive;color:var(--olive);margin-top:30px}
+.travel{background:var(--paper2);padding-top:95px}
+.travel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:50px}
+.travel-card{height:520px;position:relative;overflow:hidden;background:#999}
+.travel-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s}
+.travel-card:hover img{transform:scale(1.05)}
+.travel-card:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.72))}
+.travel-caption{position:absolute;z-index:2;bottom:27px;left:24px;color:white}
+.travel-caption b{font:400 31px "Cormorant Garamond",serif;display:block}
+.travel-caption span{font-size:8px;letter-spacing:.22em;text-transform:uppercase}
+.proposal{min-height:480px;display:grid;grid-template-columns:1.2fr .8fr;padding:0;background:var(--dark);color:white}
+.proposal-photo{min-height:480px;background:url("img/foto1.jpg") center 42%/cover no-repeat}
+.proposal-copy{display:flex;align-items:center;padding:70px 9%}
+.proposal-copy h3{font:400 clamp(50px,6vw,78px)/.88 "Cormorant Garamond",serif;margin:0}
+.proposal-copy p{font-size:13px;line-height:2;margin-top:25px;color:#d9ddd4}
+.proposal-sign{font:400 29px "Parisienne",cursive;margin-top:25px}
+.ring{background:var(--paper);display:grid;grid-template-columns:.8fr 1.2fr;min-height:520px}
+.ring-photo{background:url("img/foto2.jpg") center/cover no-repeat;min-height:520px}
+.ring-copy{padding:80px 9%;display:flex;align-items:center}
+.ring-copy h3{font:400 clamp(55px,6vw,80px)/.88 "Cormorant Garamond",serif;margin:0}
+.count{background:var(--paper);padding-top:90px;padding-bottom:90px}
+.count-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:850px;margin:48px auto 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.count-item{text-align:center;padding:28px 8px;border-right:1px solid var(--line)}.count-item:last-child{border:0}
+.count-num{font:300 65px "Cormorant Garamond",serif}.count-label{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+.venue{padding:0;background:var(--paper2)}
+.venue-head{padding:110px 24px 70px;text-align:center}
+.venue-photo{height:65vh;min-height:500px;background-image:linear-gradient(90deg,rgba(26,31,24,.4),rgba(26,31,24,.05)),url("https://www.jardinelbotero.com/assets/images/finca-para-bodas-en-madrid-jardin-el-botero-1.jpeg");background-size:cover;background-position:center}
+.venue-bottom{display:grid;grid-template-columns:1fr 1fr;max-width:1120px;margin:auto}
+.venue-card{padding:65px 7%}.venue-card+ .venue-card{border-left:1px solid var(--line)}
+.venue-card h3{font:400 43px "Cormorant Garamond",serif;margin:0 0 18px}.venue-card p{font-size:13px;line-height:2;color:#686861}
+.btn{display:inline-block;margin-top:20px;padding:14px 25px;border:1px solid var(--olive);font-size:8px;letter-spacing:.25em;text-transform:uppercase}
+.day{background:var(--paper);text-align:center}
+.timeline{max-width:900px;margin:55px auto 0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.event{padding:30px 15px;border-right:1px solid var(--line)}.event:last-child{border:0}
+.event-time{font:400 31px "Cormorant Garamond",serif}.event-title{margin-top:8px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.venue-gallery{display:grid;grid-template-columns:1fr 1fr;height:420px}.venue-gallery div{background-size:cover;background-position:center}.venue-gallery div:nth-child(1){background-image:url("https://www.jardinelbotero.com/assets/images/finca-para-bodas-en-madrid-jardin-el-botero-2.jpeg")}.venue-gallery div:nth-child(2){background-image:url("https://www.jardinelbotero.com/assets/images/finca-para-bodas-en-madrid-jardin-el-botero-3.jpeg")}
+.rsvp{background:var(--dark);color:white;text-align:center;padding:125px 24px}
+.rsvp .kicker{color:#d6ddce}.rsvp h2{font-size:clamp(65px,9vw,110px)}.rsvp p{max-width:570px;margin:28px auto;line-height:2;font-size:14px;color:#d9ddd4}
+.rsvp .btn{border-color:rgba(255,255,255,.65);color:white}
+footer{background:var(--paper);padding:70px 20px 45px;text-align:center;font:400 42px "Cormorant Garamond",serif}
+.footer-small{margin-top:12px;font:300 8px "DM Sans",sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(25px);transition:.9s ease}.visible{opacity:1;transform:none}
+@media(max-width:760px){
+ nav{display:none}.hero-content{padding:25px 25px 90px}.hero-bottom{left:25px;right:25px}
+ .names{font-size:82px}.travel-grid{grid-template-columns:1fr 1fr}.travel-card{height:390px}
+ .proposal,.ring{grid-template-columns:1fr}.proposal-photo,.ring-photo{min-height:55vh}
+ .proposal-copy,.ring-copy{padding:70px 30px}.count-grid{grid-template-columns:1fr 1fr}
+ .count-item:nth-child(2){border-right:0}.count-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .venue-photo{height:52vh;min-height:390px}.venue-bottom{grid-template-columns:1fr}
+ .venue-card+.venue-card{border-left:0;border-top:1px solid var(--line)}
+ .timeline{grid-template-columns:1fr 1fr}.event:nth-child(2){border-right:0}.event:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .venue-gallery{height:300px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <nav><a href="#historia">Nuestra historia</a><a href="#botero">El Botero</a><a href="#dia">El día</a><a href="#rsvp">Confirma tu asistencia</a></nav>
+  <div class="hero-content">
+    <div class="eyebrow">Nos casamos</div>
+    <h1 class="names"><span>Duarte <i class="amp">&</i></span><span>Vero</span></h1>
+    <div class="datehero">17 · JULIO · 2027</div>
+    <div class="script">Nuestra aventura continúa...</div>
+  </div>
+  <div class="hero-bottom"><span>Una historia · muchos lugares</span><a class="scroll" href="#historia">Descubrir ↓</a></div>
+</header>
+
+<section class="intro" id="historia">
+  <div class="wrap center reveal">
+    <div class="kicker">Nuestra historia</div>
+    <h2>Un viaje que sigue<br>sumando destinos.</h2>
+    <p class="lead">Nos conocimos, viajamos, reímos, nos perdimos y siempre nos encontramos. Cada lugar nos ha dejado algo, pero lo mejor de cada viaje siempre ha sido hacerlo juntos.</p>
+    <div class="story-intro">Y todavía nos quedan muchos por vivir.</div>
+  </div>
+</section>
+
+<section class="travel">
+  <div class="wrap reveal">
+    <div class="travel-grid">
+      <div class="travel-card"><img src="img/foto3.jpg"><div class="travel-caption"><b>Bali</b><span>Donde empezó la aventura</span></div></div>
+      <div class="travel-card"><img src="img/foto4.jpg"><div class="travel-caption"><b>Egipto</b><span>Historia, magia y nosotros</span></div></div>
+      <div class="travel-card"><img src="img/foto5.jpg"><div class="travel-caption"><b>China</b><span>Kilómetros de recuerdos</span></div></div>
+      <div class="travel-card"><img src="img/foto6.jpg"><div class="travel-caption"><b>Y muchos más...</b><span>Porque el mejor destino es juntos</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="proposal">
+  <div class="proposal-photo"></div>
+  <div class="proposal-copy reveal">
+    <div>
+      <div class="kicker" style="color:#d6ddce">Un momento para recordar</div>
+      <h3>Y entonces llegó<br>la pregunta...</h3>
+      <p>Un lugar inolvidable, una noche especial y una pregunta que cambió nuestra historia para siempre.</p>
+      <div class="proposal-sign">Dijo que sí. ❤️</div>
+    </div>
+  </div>
+</section>
+
+<section class="ring">
+  <div class="ring-copy reveal">
+    <div>
+      <div class="kicker">Y así empezó el siguiente capítulo</div>
+      <h3>Nos casamos.</h3>
+      <p class="lead" style="margin-left:0">17 de julio de 2027. Y queremos vivirlo rodeados de nuestra gente.</p>
+    </div>
+  </div>
+  <div class="ring-photo"></div>
+</section>
+
+<section class="count">
+  <div class="wrap center reveal">
+    <div class="kicker">Cada vez queda menos</div><h2>Cuenta atrás.</h2>
+    <div class="count-grid">
+      <div class="count-item"><div class="count-num" id="days">—</div><div class="count-label">Días</div></div>
+      <div class="count-item"><div class="count-num" id="hours">—</div><div class="count-label">Horas</div></div>
+      <div class="count-item"><div class="count-num" id="minutes">—</div><div class="count-label">Minutos</div></div>
+      <div class="count-item"><div class="count-num" id="seconds">—</div><div class="count-label">Segundos</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="venue" id="botero">
+  <div class="venue-head reveal">
+    <div class="kicker">El lugar</div><h2>El Botero.</h2>
+    <p class="lead">El escenario elegido para celebrar este nuevo capítulo con vosotros.</p>
+  </div>
+  <div class="venue-photo"></div>
+  <div class="venue-bottom">
+    <div class="venue-card reveal"><h3>Un día para disfrutar.</h3><p>Jardines, espacios para la celebración y un entorno que queremos compartir con todos vosotros.</p><a class="btn" href="https://www.jardinelbotero.com/" target="_blank">Descubrir El Botero</a></div>
+    <div class="venue-card reveal"><h3>Nos vemos allí.</h3><p>Próximamente añadiremos aquí cómo llegar, horarios, parking y toda la información práctica del día.</p></div>
+  </div>
+  <div class="venue-gallery"><div></div><div></div></div>
+</section>
+
+<section class="day" id="dia">
+  <div class="wrap center reveal">
+    <div class="kicker">El día</div><h2>Así será nuestra boda.</h2>
+    <p class="lead">Los horarios son provisionales y los actualizaremos cuando tengamos todo cerrado.</p>
+    <div class="timeline">
+      <div class="event"><div class="event-time">18:30</div><div class="event-title">Ceremonia civil</div></div>
+      <div class="event"><div class="event-time">19:30</div><div class="event-title">Cóctel</div></div>
+      <div class="event"><div class="event-time">21:00</div><div class="event-title">Cena</div></div>
+      <div class="event"><div class="event-time">23:00</div><div class="event-title">Fiesta</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="rsvp" id="rsvp">
+  <div class="wrap reveal">
+    <div class="kicker">Y ahora falta lo más importante</div>
+    <h2>¿Nos acompañas?</h2>
+    <p>Muy pronto podrás confirmar tu asistencia y encontrar aquí toda la información que necesitas para disfrutar del día con nosotros.</p>
+    <a class="btn" href="#">Confirmar asistencia</a>
+  </div>
+</section>
+
+<footer>Duarte & Vero<div class="footer-small">17 · 07 · 2027 · Gracias por formar parte de nuestra historia</div></footer>
+
+<script>
+const wedding=new Date("2027-07-17T18:30:00+02:00").getTime();
+function countdown(){
+ const d=Math.max(0,wedding-Date.now());
+ document.getElementById("days").textContent=Math.floor(d/86400000);
+ document.getElementById("hours").textContent=String(Math.floor(d%86400000/3600000)).padStart(2,"0");
+ document.getElementById("minutes").textContent=String(Math.floor(d%3600000/60000)).padStart(2,"0");
+ document.getElementById("seconds").textContent=String(Math.floor(d%60000/1000)).padStart(2,"0");
+}
+countdown();setInterval(countdown,1000);
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.1});
+document.querySelectorAll(".reveal").forEach(x=>obs.observe(x));
+</script>
+</body>
+</html>
