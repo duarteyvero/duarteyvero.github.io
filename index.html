@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duarte & Vero · 17.07.2027</title>
+<meta name="description" content="Duarte & Vero · 17 de julio de 2027">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+:root{--cream:#f4f1e9;--ink:#242522;--olive:#68705b;--earth:#8d7963;--line:rgba(36,37,34,.18)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Montserrat,sans-serif;font-weight:300}
+.hero{height:100svh;min-height:650px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:
+linear-gradient(180deg,rgba(20,22,18,.18),rgba(20,22,18,.52)),
+radial-gradient(circle at 50% 40%,#b6b4a8 0,#77796e 40%,#45483e 100%)}
+.hero:before{content:"";position:absolute;inset:-5%;background:
+linear-gradient(135deg,transparent 35%,rgba(255,255,255,.10) 36%,transparent 37%),
+linear-gradient(165deg,transparent 55%,rgba(255,255,255,.07) 56%,transparent 57%);
+transform:scale(1.08)}
+.hero-content{position:relative;text-align:center;color:#fff;z-index:2}
+.mini{font-size:10px;letter-spacing:.42em;text-transform:uppercase;margin-bottom:28px;opacity:.9}
+.names{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:clamp(76px,13vw,150px);line-height:.72;margin:0;letter-spacing:-.025em}
+.names em{font-size:.42em;font-weight:300;margin:0 13px;vertical-align:middle}
+.hero-date{font-family:"Cormorant Garamond",serif;font-size:31px;letter-spacing:.08em;margin-top:34px}
+.hero-place{font-size:9px;letter-spacing:.4em;text-transform:uppercase;margin-top:10px;opacity:.85}
+.enter{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#fff;text-decoration:none;font-size:9px;letter-spacing:.3em;text-transform:uppercase;z-index:3}
+.enter:after{content:"";display:block;width:1px;height:48px;background:rgba(255,255,255,.65);margin:13px auto 0}
+.reveal{opacity:0;transform:translateY(25px);transition:1s ease}.visible{opacity:1;transform:none}
+section{padding:130px 24px}.wrap{max-width:1000px;margin:auto}.center{text-align:center}
+.kicker{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--olive);margin-bottom:22px}
+h2{font:400 clamp(50px,7vw,82px)/.9 "Cormorant Garamond",serif;margin:0 0 28px}
+.intro{max-width:570px;margin:auto;font-size:14px;line-height:2;color:#64645e}
+.rule{width:48px;border:0;border-top:1px solid var(--earth);margin:35px auto}
+.photo{height:70vh;min-height:480px;position:relative;overflow:hidden;background:
+linear-gradient(180deg,rgba(35,40,31,.05),rgba(35,40,31,.35)),
+linear-gradient(135deg,#a7aa96,#68705b 48%,#4b5343)}
+.photo:before{content:"";position:absolute;inset:0;background:
+radial-gradient(ellipse at 15% 70%,rgba(34,48,30,.7) 0 12%,transparent 13%),
+radial-gradient(ellipse at 40% 75%,rgba(38,53,33,.65) 0 15%,transparent 16%),
+radial-gradient(ellipse at 72% 67%,rgba(31,46,29,.7) 0 13%,transparent 14%),
+linear-gradient(175deg,transparent 0 48%,rgba(229,222,202,.25) 49% 52%,transparent 53%)}
+.photo-caption{position:absolute;left:35px;bottom:30px;color:white}
+.photo-caption .big{font:400 55px "Cormorant Garamond",serif}.photo-caption small{font-size:9px;letter-spacing:.3em;text-transform:uppercase}
+.date-section{background:#e8e5dc}
+.big-date{display:flex;justify-content:center;align-items:center;gap:25px;margin:45px 0 20px}
+.big-date .day{font:300 clamp(110px,20vw,220px)/.7 "Cormorant Garamond",serif}
+.big-date .month{font:400 28px "Cormorant Garamond",serif;text-align:left}
+.big-date .year{font-size:10px;letter-spacing:.3em;display:block;margin-top:10px}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:70px}
+.time{padding:28px 15px;border-right:1px solid var(--line)}.time:last-child{border:0}
+.time b{font:400 31px "Cormorant Garamond",serif;display:block;margin-bottom:8px}.time span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#77766f}
+.story{display:grid;grid-template-columns:1fr 1fr;min-height:600px}.story-image{background:linear-gradient(145deg,#d1cec0,#9c9d91 55%,#64685b)}.story-copy{padding:80px 9%;display:flex;align-items:center}.story-copy-inner{max-width:430px}.story-copy h3{font:400 57px/1 "Cormorant Garamond",serif;margin:0 0 30px}.story-copy p{font-size:14px;line-height:2;color:#66655f}
+.rsvp{background:var(--olive);color:white;text-align:center}.rsvp .kicker{color:#d9dccf}.rsvp h2{font-size:72px}.rsvp p{max-width:520px;margin:auto;line-height:1.9;font-size:14px;opacity:.9}.btn{display:inline-block;color:white;border:1px solid rgba(255,255,255,.65);padding:15px 28px;margin-top:32px;text-decoration:none;font-size:9px;letter-spacing:.25em;text-transform:uppercase}
+footer{text-align:center;padding:60px 20px;font:400 30px "Cormorant Garamond",serif}.footer-small{font:300 9px Montserrat,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:#777;margin-top:12px}
+@media(max-width:700px){section{padding:95px 20px}.timeline{grid-template-columns:1fr 1fr}.time:nth-child(2){border-right:0}.story{grid-template-columns:1fr}.story-image{height:55vh}.story-copy{padding:70px 30px}.big-date{gap:15px}.big-date .month{font-size:23px}.hero-date{font-size:26px}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-content">
+    <div class="mini">Nos casamos</div>
+    <h1 class="names">Duarte <em>&</em> Vero</h1>
+    <div class="hero-date">17 · julio · 2027</div>
+    <div class="hero-place">Madrid</div>
+  </div>
+  <a class="enter" href="#intro">Descubrir</a>
+</section>
+
+<section id="intro">
+  <div class="wrap center reveal">
+    <div class="kicker">Una fecha para recordar</div>
+    <h2>Tenemos algo<br>que celebrar</h2>
+    <p class="intro">Después de todo lo vivido, hemos decidido dar el siguiente paso. Y queremos compartirlo con las personas que más queremos.</p>
+    <hr class="rule">
+    <p class="intro">17 de julio de 2027</p>
+  </div>
+</section>
+
+<div class="photo">
+  <div class="photo-caption">
+    <div class="big">El lugar</div>
+    <small>La celebración · Madrid</small>
+  </div>
+</div>
+
+<section class="date-section">
+  <div class="wrap center reveal">
+    <div class="kicker">Guárdate la fecha</div>
+    <h2>El gran día</h2>
+    <div class="big-date">
+      <div class="day">17</div>
+      <div class="month">JULIO<span class="year">2027</span></div>
+    </div>
+    <div class="timeline">
+      <div class="time"><b>18:00</b><span>Ceremonia</span></div>
+      <div class="time"><b>19:00</b><span>Cóctel</span></div>
+      <div class="time"><b>21:00</b><span>Cena</span></div>
+      <div class="time"><b>23:30</b><span>Fiesta</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0">
+  <div class="story">
+    <div class="story-image"></div>
+    <div class="story-copy">
+      <div class="story-copy-inner reveal">
+        <div class="kicker">Nuestra historia</div>
+        <h3>Y aquí empieza<br>un nuevo capítulo.</h3>
+        <p>Este espacio será para contar nuestra historia a nuestra manera: sin grandes discursos, pero con los momentos que nos han traído hasta aquí.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rsvp">
+  <div class="wrap reveal">
+    <div class="kicker">Y ahora falta lo más importante</div>
+    <h2>¿Nos acompañas?</h2>
+    <p>Más adelante podrás confirmar tu asistencia, indicarnos cualquier necesidad y encontrar toda la información del día.</p>
+    <a class="btn" href="#">Confirmar asistencia</a>
+  </div>
+</section>
+
+<footer>Duarte & Vero<div class="footer-small">17 · 07 · 2027</div></footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(x=>obs.observe(x));
+</script>
+</body>
+</html>
