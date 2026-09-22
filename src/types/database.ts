@@ -103,22 +103,28 @@ export type Database = {
       }
       rsvps: {
         Row: {
+          admin_note: string | null
           attending: boolean
           created_at: string
           id: string
           message: string | null
+          source: string
         }
         Insert: {
+          admin_note?: string | null
           attending: boolean
           created_at?: string
           id?: string
           message?: string | null
+          source?: string
         }
         Update: {
+          admin_note?: string | null
           attending?: boolean
           created_at?: string
           id?: string
           message?: string | null
+          source?: string
         }
         Relationships: []
       }
@@ -127,6 +133,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_rsvp: { Args: { payload: Json }; Returns: string }
       is_admin: { Args: never; Returns: boolean }
       submit_rsvp: { Args: { payload: Json }; Returns: undefined }
       update_rsvp: {
