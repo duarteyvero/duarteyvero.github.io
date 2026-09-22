@@ -1,16 +1,9 @@
-import { Alert, Button, ConfigProvider, Form, Input, Radio } from 'antd'
+import { Alert, Button, ConfigProvider, Form, Input } from 'antd'
 import { darkSectionTheme } from '@/theme/antd'
-import { CompanionsList } from './CompanionsList'
-import { FormBlock } from './FormBlock'
-import { GuestNameFields, GuestQuestionFields } from './GuestFields'
-import { LIMITS, rules, type RsvpFormValues } from './rsvp.schema'
+import { RsvpFields } from './RsvpFields'
+import type { RsvpFormValues } from './rsvp.schema'
 import { RsvpSuccess } from './RsvpSuccess'
 import { useRsvpSubmit } from './useRsvpSubmit'
-
-const attendanceOptions = [
-  { label: 'Sí, allí estaré', value: true },
-  { label: 'No podré ir', value: false },
-]
 
 export function RsvpForm() {
   const [form] = Form.useForm<RsvpFormValues>()
@@ -39,44 +32,15 @@ export function RsvpForm() {
         onFinish={submit}
         className="flex flex-col gap-10 text-left"
       >
-        <FormBlock title="Tus datos">
-          <GuestNameFields prefix={['primary']} autoFocus />
-
-          <Form.Item
-            label="¿Vienes a la boda?"
-            name="attending"
-            rules={rules.requiredChoice('Cuéntanos si vienes')}
-          >
-            <Radio.Group
-              block
-              size="large"
-              optionType="button"
-              buttonStyle="solid"
-              options={attendanceOptions}
-            />
-          </Form.Item>
-
-          {attending === true && <GuestQuestionFields prefix={['primary']} />}
-        </FormBlock>
-
-        {attending === true && <CompanionsList />}
+        <RsvpFields autoFocus />
 
         {/* Honeypot: invisible para personas, irresistible para bots */}
         <Form.Item name="website" hidden>
           <Input tabIndex={-1} autoComplete="off" />
         </Form.Item>
 
-        {/* Hasta que no conteste si viene, el formulario no pasa de sus datos */}
         {attending !== undefined && (
           <>
-            <Form.Item
-              label="¿Algo que quieras decirnos?"
-              name="message"
-              rules={rules.optionalText(LIMITS.message)}
-            >
-              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} maxLength={LIMITS.message} />
-            </Form.Item>
-
             {error && <Alert type="error" showIcon title={error} />}
 
             <Button

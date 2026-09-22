@@ -1,4 +1,5 @@
 import { getSupabase } from '@/lib/supabase'
+import { toPayload, type RsvpFormValues } from '@/features/rsvp/rsvp.schema'
 import type { Tables } from '@/types/database'
 
 export type Guest = Tables<'guests'>
@@ -38,4 +39,17 @@ export async function fetchRsvps(): Promise<RsvpWithGuests[]> {
 export async function deleteRsvp(id: string) {
   const { error } = await getSupabase().from('rsvps').delete().eq('id', id)
   if (error) throw error
+}
+
+/** Sustituye la respuesta completa (asistencia, mensaje y personas) en una transacción */
+export async function updateRsvp(id: string, values: RsvpFormValues) {
+  const { error } = await getSupabase().rpc('update_rsvp', {
+    target_id: id,
+    payload: toPayload(values),
+  })
+
+  if (error) {
+    // 22023 = validación propia de la función: su mensaje ya es legible
+    throw new Error(error.code === '22023' ? error.message : 'No se han podido guardar los cambios')
+  }
 }

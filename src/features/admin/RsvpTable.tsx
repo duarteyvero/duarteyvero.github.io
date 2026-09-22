@@ -1,4 +1,4 @@
-import { Button, Input, Popconfirm, Table, Tag, type TableColumnsType } from 'antd'
+import { Button, Input, Popconfirm, Space, Table, Tag, type TableColumnsType } from 'antd'
 import { useState } from 'react'
 import { formatDateTime } from '@/lib/date'
 import type { RsvpWithGuests } from './admin.service'
@@ -8,6 +8,7 @@ import { fullName, primaryGuest } from './rsvp.stats'
 type RsvpTableProps = {
   rsvps: RsvpWithGuests[]
   loading: boolean
+  onEdit: (rsvp: RsvpWithGuests) => void
   onDelete: (id: string) => Promise<void>
 }
 
@@ -17,7 +18,7 @@ const normalize = (text: string) =>
     .replace(/\p{Diacritic}/gu, '')
     .toLowerCase()
 
-export function RsvpTable({ rsvps, loading, onDelete }: RsvpTableProps) {
+export function RsvpTable({ rsvps, loading, onEdit, onDelete }: RsvpTableProps) {
   const [query, setQuery] = useState('')
   const needle = normalize(query.trim())
 
@@ -68,18 +69,23 @@ export function RsvpTable({ rsvps, loading, onDelete }: RsvpTableProps) {
       title: '',
       align: 'right',
       render: (_, rsvp) => (
-        <Popconfirm
-          title="¿Borrar esta respuesta?"
-          description="Se borrarán también sus acompañantes."
-          okText="Borrar"
-          cancelText="Cancelar"
-          okButtonProps={{ danger: true }}
-          onConfirm={() => onDelete(rsvp.id)}
-        >
-          <Button type="text" danger size="small">
-            Borrar
+        <Space size={0}>
+          <Button type="text" size="small" onClick={() => onEdit(rsvp)}>
+            Editar
           </Button>
-        </Popconfirm>
+          <Popconfirm
+            title="¿Borrar esta respuesta?"
+            description="Se borrarán también sus acompañantes."
+            okText="Borrar"
+            cancelText="Cancelar"
+            okButtonProps={{ danger: true }}
+            onConfirm={() => onDelete(rsvp.id)}
+          >
+            <Button type="text" danger size="small">
+              Borrar
+            </Button>
+          </Popconfirm>
+        </Space>
       ),
     },
   ]

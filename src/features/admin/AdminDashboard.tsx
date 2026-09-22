@@ -1,16 +1,26 @@
 import { Alert, App, Button, Space, Tabs } from 'antd'
+import { useState } from 'react'
+import type { RsvpFormValues } from '@/features/rsvp/rsvp.schema'
+import type { RsvpWithGuests } from './admin.service'
 import { AdminShell } from './AdminShell'
 import { exportGuestsCsv } from './exports'
 import { GuestNotesList } from './GuestNotesList'
 import { guestNotes } from './rsvp.stats'
+import { RsvpEditModal } from './RsvpEditModal'
 import { RsvpSummary } from './RsvpSummary'
 import { RsvpTable } from './RsvpTable'
 import { SignOutButton } from './SignOutButton'
 import { useRsvps } from './useRsvps'
 
 export function AdminDashboard() {
-  const { rsvps, loading, error, reload, remove } = useRsvps()
+  const { rsvps, loading, error, reload, remove, update } = useRsvps()
   const { message } = App.useApp()
+  const [editing, setEditing] = useState<RsvpWithGuests>()
+
+  const handleSave = async (id: string, values: RsvpFormValues) => {
+    await update(id, values)
+    message.success('Respuesta actualizada')
+  }
 
   const handleDelete = async (id: string) => {
     try {
@@ -45,7 +55,14 @@ export function AdminDashboard() {
             {
               key: 'rsvps',
               label: 'Respuestas',
-              children: <RsvpTable rsvps={rsvps} loading={loading} onDelete={handleDelete} />,
+              children: (
+                <RsvpTable
+                  rsvps={rsvps}
+                  loading={loading}
+                  onEdit={setEditing}
+                  onDelete={handleDelete}
+                />
+              ),
             },
             {
               key: 'allergies',
@@ -69,6 +86,8 @@ export function AdminDashboard() {
             },
           ]}
         />
+
+        <RsvpEditModal rsvp={editing} onSave={handleSave} onClose={() => setEditing(undefined)} />
       </div>
     </AdminShell>
   )
