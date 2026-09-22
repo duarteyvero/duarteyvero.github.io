@@ -1,0 +1,4 @@
+legacy
+pnpm-lock.yaml
+src/types/database.ts
+supabase/.temp

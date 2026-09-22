@@ -1,0 +1,22 @@
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA: cualquier ruta (p. ej. /admin) la resuelve React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/admin*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

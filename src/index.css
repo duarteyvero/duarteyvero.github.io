@@ -1,0 +1,50 @@
+/* antd se inyecta en su propia capa para que las utilidades de Tailwind puedan sobrescribirlo */
+@layer theme, base, antd, components, utilities;
+
+@import 'tailwindcss';
+
+/* Mantener sincronizado con src/theme/tokens.ts (antd necesita los valores en JS) */
+@theme {
+  --color-paper: #f1ede4;
+  --color-paper2: #e5dfd2;
+  --color-ink: #25261f;
+  --color-muted: #77776e;
+  --color-body: #686861;
+  --color-olive: #56614d;
+  --color-dark: #30382d;
+  --color-sage: #d6ddce;
+  --color-mist: #d9ddd4;
+  --color-white: #fbfaf6;
+  --color-line: rgb(37 38 31 / 0.15);
+
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-script: 'Parisienne', cursive;
+
+  --text-micro: 8px;
+  --text-kicker: 9px;
+  --text-heading-display: clamp(65px, 9vw, 110px);
+  --text-heading-xl: clamp(58px, 7vw, 92px);
+  --text-heading-lg: clamp(50px, 6vw, 78px);
+  --text-heading-md: 43px;
+
+  --breakpoint-sm: 35rem; /* 560px */
+  --breakpoint-md: 47.5rem; /* 760px */
+  --breakpoint-lg: 56.25rem; /* 900px */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans font-light text-ink antialiased;
+  }
+}
