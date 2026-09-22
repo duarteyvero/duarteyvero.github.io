@@ -1,32 +1,32 @@
-import { Alert, Form, Modal } from 'antd'
+import { Alert, Form, Input, Modal } from 'antd'
 import { useState } from 'react'
 import { RsvpFields } from '@/features/rsvp/RsvpFields'
-import type { RsvpFormValues } from '@/features/rsvp/rsvp.schema'
-import type { RsvpWithGuests } from './admin.service'
+import { rules } from '@/features/rsvp/rsvp.schema'
+import { ADMIN_NOTE_MAX, type AdminRsvpValues, type RsvpWithGuests } from './admin.service'
 import { fullName, primaryGuest } from './rsvp.stats'
 import { toFormValues } from './toFormValues'
 
-type RsvpEditModalProps = {
-  /** Respuesta en edición; `undefined` = modal cerrado */
+type RsvpModalProps = {
+  open: boolean
+  /** Respuesta a editar; sin ella, el modal crea una nueva */
   rsvp?: RsvpWithGuests
-  onSave: (id: string, values: RsvpFormValues) => Promise<void>
+  onSave: (values: AdminRsvpValues) => Promise<void>
   onClose: () => void
 }
 
-/** Mismo formulario que el RSVP público, relleno con la respuesta y en el tema claro del panel */
-export function RsvpEditModal({ rsvp, onSave, onClose }: RsvpEditModalProps) {
-  const [form] = Form.useForm<RsvpFormValues>()
+/** Mismo formulario que el RSVP público + nota privada, en el tema claro del panel */
+export function RsvpModal({ open, rsvp, onSave, onClose }: RsvpModalProps) {
+  const [form] = Form.useForm<AdminRsvpValues>()
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string>()
   const primary = rsvp && primaryGuest(rsvp)
 
-  const handleFinish = async (values: RsvpFormValues) => {
-    if (!rsvp) return
+  const handleFinish = async (values: AdminRsvpValues) => {
     setSaving(true)
     setError(undefined)
 
     try {
-      await onSave(rsvp.id, values)
+      await onSave(values)
       onClose()
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err))
@@ -37,9 +37,9 @@ export function RsvpEditModal({ rsvp, onSave, onClose }: RsvpEditModalProps) {
 
   return (
     <Modal
-      open={rsvp !== undefined}
-      title={primary ? `Editar respuesta de ${fullName(primary)}` : 'Editar respuesta'}
-      okText="Guardar cambios"
+      open={open}
+      title={rsvp ? `Editar respuesta de ${primary ? fullName(primary) : '—'}` : 'Nueva respuesta'}
+      okText={rsvp ? 'Guardar cambios' : 'Añadir respuesta'}
       cancelText="Cancelar"
       confirmLoading={saving}
       onOk={() => form.submit()}
@@ -48,17 +48,30 @@ export function RsvpEditModal({ rsvp, onSave, onClose }: RsvpEditModalProps) {
       destroyOnHidden
       width={720}
     >
-      {rsvp && (
-        <Form<RsvpFormValues>
+      {open && (
+        <Form<AdminRsvpValues>
           form={form}
           layout="vertical"
           requiredMark={false}
-          initialValues={toFormValues(rsvp)}
+          initialValues={rsvp && toFormValues(rsvp)}
           scrollToFirstError={{ behavior: 'smooth', block: 'center' }}
           onFinish={handleFinish}
           className="flex flex-col gap-6 pt-2"
         >
-          <RsvpFields tone="light" primaryTitle="Titular" />
+          <RsvpFields tone="light" primaryTitle="Titular" autoFocus={!rsvp} />
+
+          <Form.Item
+            label="Nota privada (solo la veis vosotros)"
+            name="adminNote"
+            rules={rules.optionalText(ADMIN_NOTE_MAX)}
+          >
+            <Input.TextArea
+              autoSize={{ minRows: 2, maxRows: 5 }}
+              maxLength={ADMIN_NOTE_MAX}
+              placeholder="Ej.: primo de Vero, confirmado por WhatsApp, mesa 4…"
+            />
+          </Form.Item>
+
           {error && <Alert type="error" showIcon title={error} />}
         </Form>
       )}

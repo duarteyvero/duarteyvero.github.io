@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { RsvpFormValues } from '@/features/rsvp/rsvp.schema'
-import { deleteRsvp, fetchRsvps, updateRsvp, type RsvpWithGuests } from './admin.service'
+import {
+  createRsvp,
+  deleteRsvp,
+  fetchRsvps,
+  updateRsvp,
+  type AdminRsvpValues,
+  type RsvpWithGuests,
+} from './admin.service'
 
 export function useRsvps() {
   const [rsvps, setRsvps] = useState<RsvpWithGuests[]>([])
@@ -33,14 +39,22 @@ export function useRsvps() {
     setRsvps((current) => current.filter((rsvp) => rsvp.id !== id))
   }, [])
 
-  // Las personas se reescriben en BD (ids nuevos): se recarga en vez de parchear el estado
+  // Crear o editar reescribe personas en BD (ids nuevos): se recarga en vez de parchear el estado
+  const create = useCallback(
+    async (values: AdminRsvpValues) => {
+      await createRsvp(values)
+      await load()
+    },
+    [load],
+  )
+
   const update = useCallback(
-    async (id: string, values: RsvpFormValues) => {
+    async (id: string, values: AdminRsvpValues) => {
       await updateRsvp(id, values)
       await load()
     },
     [load],
   )
 
-  return { rsvps, loading, error, reload, remove, update }
+  return { rsvps, loading, error, reload, create, update, remove }
 }
