@@ -6,7 +6,6 @@ export function AdminPage() {
   return (
     <AntdProvider>
       <title>Panel · Duarte & Vero</title>
-      <meta name="robots" content="noindex, nofollow" />
       <RequireAuth>
         <AdminDashboard />
       </RequireAuth>

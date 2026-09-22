@@ -242,7 +242,7 @@ Una respuesta (`rsvps`) agrupa al titular y sus acompañantes (`guests`). Si `at
 - **Tabla** de respuestas: titular, asistencia, nº acompañantes, fecha; fila expandible con cada persona y sus respuestas. Búsqueda por nombre y filtros (asiste / bus / con alergias).
 - **Listas rápidas**: alergias (persona → alergia, para el catering) y canciones (para el DJ).
 - **Exportar a CSV** (para catering y autobús), generado en cliente sin librerías extra.
-- No indexable: `<meta name="robots" content="noindex">` en la ruta.
+- No indexable: toda la web va con `noindex, nofollow` (meta en `index.html` + cabecera `X-Robots-Tag` para `/*` en `netlify.toml`). Sin `robots.txt`: bloquear el rastreo impediría a los buscadores leer el `noindex`.
 
 ## 9. Despliegue (Netlify)
 
