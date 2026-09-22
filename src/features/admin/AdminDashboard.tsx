@@ -1,25 +1,29 @@
 import { Alert, App, Button, Space, Tabs } from 'antd'
 import { useState } from 'react'
-import type { RsvpFormValues } from '@/features/rsvp/rsvp.schema'
-import type { RsvpWithGuests } from './admin.service'
+import type { AdminRsvpValues, RsvpWithGuests } from './admin.service'
 import { AdminShell } from './AdminShell'
-import { exportGuestsCsv } from './exports'
+import { ExportMenu } from './ExportMenu'
 import { GuestNotesList } from './GuestNotesList'
-import { guestNotes } from './rsvp.stats'
-import { RsvpEditModal } from './RsvpEditModal'
+import { duplicateGuestIds, guestNotes } from './rsvp.stats'
+import { RsvpModal } from './RsvpModal'
 import { RsvpSummary } from './RsvpSummary'
 import { RsvpTable } from './RsvpTable'
 import { SignOutButton } from './SignOutButton'
 import { useRsvps } from './useRsvps'
 
-export function AdminDashboard() {
-  const { rsvps, loading, error, reload, remove, update } = useRsvps()
-  const { message } = App.useApp()
-  const [editing, setEditing] = useState<RsvpWithGuests>()
+/** `undefined` = cerrado; `{}` = nueva respuesta; `{ rsvp }` = editar */
+type ModalState = { rsvp?: RsvpWithGuests } | undefined
 
-  const handleSave = async (id: string, values: RsvpFormValues) => {
-    await update(id, values)
-    message.success('Respuesta actualizada')
+export function AdminDashboard() {
+  const { rsvps, loading, error, reload, create, update, remove } = useRsvps()
+  const { message } = App.useApp()
+  const [modal, setModal] = useState<ModalState>()
+  const duplicates = duplicateGuestIds(rsvps)
+
+  const handleSave = async (values: AdminRsvpValues) => {
+    const editing = modal?.rsvp
+    await (editing ? update(editing.id, values) : create(values))
+    message.success(editing ? 'Respuesta actualizada' : 'Respuesta añadida')
   }
 
   const handleDelete = async (id: string) => {
@@ -35,12 +39,13 @@ export function AdminDashboard() {
     <AdminShell
       actions={
         <Space wrap>
+          <Button type="primary" onClick={() => setModal({})}>
+            + Nueva respuesta
+          </Button>
           <Button onClick={() => void reload()} loading={loading}>
             Actualizar
           </Button>
-          <Button onClick={() => exportGuestsCsv(rsvps)} disabled={rsvps.length === 0}>
-            Exportar CSV
-          </Button>
+          <ExportMenu rsvps={rsvps} />
           <SignOutButton />
         </Space>
       }
@@ -49,6 +54,15 @@ export function AdminDashboard() {
         {error && <Alert type="error" showIcon title={error} />}
 
         <RsvpSummary rsvps={rsvps} />
+
+        {duplicates.size > 0 && (
+          <Alert
+            type="warning"
+            showIcon
+            title={`Hay ${duplicates.size} personas con el nombre repetido`}
+            description="Filtra la tabla por «Posibles duplicados» para revisarlas y borrar o editar la que sobre."
+          />
+        )}
 
         <Tabs
           items={[
@@ -59,7 +73,8 @@ export function AdminDashboard() {
                 <RsvpTable
                   rsvps={rsvps}
                   loading={loading}
-                  onEdit={setEditing}
+                  duplicates={duplicates}
+                  onEdit={(rsvp) => setModal({ rsvp })}
                   onDelete={handleDelete}
                 />
               ),
@@ -87,7 +102,12 @@ export function AdminDashboard() {
           ]}
         />
 
-        <RsvpEditModal rsvp={editing} onSave={handleSave} onClose={() => setEditing(undefined)} />
+        <RsvpModal
+          open={modal !== undefined}
+          rsvp={modal?.rsvp}
+          onSave={handleSave}
+          onClose={() => setModal(undefined)}
+        />
       </div>
     </AdminShell>
   )
