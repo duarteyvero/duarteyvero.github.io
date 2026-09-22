@@ -1,3 +1,4 @@
+import { normalizeText } from '@/lib/text'
 import type { Guest, RsvpWithGuests } from './admin.service'
 
 export const fullName = (guest: Pick<Guest, 'first_name' | 'last_name'>) =>
@@ -33,4 +34,19 @@ export function guestNotes(
     const note = guest[field]
     return note ? [{ id: guest.id, name: fullName(guest), note }] : []
   })
+}
+
+/**
+ * Ids de las personas cuyo nombre completo aparece más de una vez (en la misma
+ * respuesta o en otras): suele ser alguien que ha confirmado dos veces
+ */
+export function duplicateGuestIds(rsvps: RsvpWithGuests[]): Set<string> {
+  const byName = new Map<string, string[]>()
+
+  for (const guest of rsvps.flatMap((rsvp) => rsvp.guests)) {
+    const key = normalizeText(fullName(guest))
+    byName.set(key, [...(byName.get(key) ?? []), guest.id])
+  }
+
+  return new Set([...byName.values()].filter((ids) => ids.length > 1).flat())
 }
