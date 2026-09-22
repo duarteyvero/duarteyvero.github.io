@@ -129,6 +129,10 @@ export type Database = {
     Functions: {
       is_admin: { Args: never; Returns: boolean }
       submit_rsvp: { Args: { payload: Json }; Returns: undefined }
+      update_rsvp: {
+        Args: { payload: Json; target_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
