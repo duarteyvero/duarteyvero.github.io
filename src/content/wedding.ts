@@ -115,7 +115,8 @@ export const schedule = {
 export const rsvp = {
   kicker: 'Y ahora falta lo más importante',
   title: '¿Nos acompañas?',
-  lead: 'Confírmanos si vienes y cuéntanos lo que necesitemos saber de ti y de quien venga contigo.',
+  lead: 'Confírmanos tu asistencia y encuentra aquí toda la información que necesitas para disfrutar del día con nosotros.',
+  cta: 'Confirmar asistencia',
 }
 
 export const footer = {

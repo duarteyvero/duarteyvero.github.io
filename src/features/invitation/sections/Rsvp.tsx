@@ -24,7 +24,7 @@ export function Rsvp() {
             lead={rsvp.lead}
           />
         </Reveal>
-        <div className="mx-auto mt-14 max-w-[680px]">
+        <div className="mx-auto max-w-[680px]">
           <LazyRsvpForm />
         </div>
       </Container>

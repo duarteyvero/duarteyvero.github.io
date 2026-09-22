@@ -40,7 +40,7 @@ export function RsvpForm() {
         className="flex flex-col gap-10 text-left"
       >
         <FormBlock title="Tus datos">
-          <GuestNameFields prefix={['primary']} />
+          <GuestNameFields prefix={['primary']} autoFocus />
 
           <Form.Item
             label="¿Vienes a la boda?"
@@ -61,31 +61,36 @@ export function RsvpForm() {
 
         {attending === true && <CompanionsList />}
 
-        <Form.Item
-          label="¿Algo que quieras decirnos?"
-          name="message"
-          rules={rules.optionalText(LIMITS.message)}
-        >
-          <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} maxLength={LIMITS.message} />
-        </Form.Item>
-
         {/* Honeypot: invisible para personas, irresistible para bots */}
         <Form.Item name="website" hidden>
           <Input tabIndex={-1} autoComplete="off" />
         </Form.Item>
 
-        {error && <Alert type="error" showIcon title={error} />}
+        {/* Hasta que no conteste si viene, el formulario no pasa de sus datos */}
+        {attending !== undefined && (
+          <>
+            <Form.Item
+              label="¿Algo que quieras decirnos?"
+              name="message"
+              rules={rules.optionalText(LIMITS.message)}
+            >
+              <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} maxLength={LIMITS.message} />
+            </Form.Item>
 
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          block
-          loading={status === 'submitting'}
-          className="h-14 text-[11px] tracking-[.25em] uppercase"
-        >
-          Enviar respuesta
-        </Button>
+            {error && <Alert type="error" showIcon title={error} />}
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              block
+              loading={status === 'submitting'}
+              className="h-14 text-[11px] tracking-[.25em] uppercase"
+            >
+              Enviar respuesta
+            </Button>
+          </>
+        )}
       </Form>
     </ConfigProvider>
   )
