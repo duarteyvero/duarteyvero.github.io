@@ -1,8 +1,14 @@
+import { mainCourses } from '@/content/wedding'
+import { isMainCourse } from '@/features/rsvp/rsvp.schema'
 import { normalizeText } from '@/lib/text'
 import type { Guest, RsvpWithGuests } from './admin.service'
 
 export const fullName = (guest: Pick<Guest, 'first_name' | 'last_name'>) =>
   `${guest.first_name} ${guest.last_name}`
+
+/** Nombre corto del plato ("Entrecot", "Lubina"); null si no ha elegido */
+export const mainCourseLabel = (value: string | null) =>
+  isMainCourse(value) ? mainCourses[value].short : null
 
 export const primaryGuest = (rsvp: RsvpWithGuests) =>
   rsvp.guests.find((guest) => guest.is_primary) ?? rsvp.guests[0]
@@ -19,6 +25,8 @@ export function summarize(rsvps: RsvpWithGuests[]) {
     attending: coming.length,
     declined: rsvps.filter((rsvp) => !rsvp.attending).length,
     bus: coming.filter((guest) => guest.needs_bus).length,
+    meat: coming.filter((guest) => guest.main_course === 'meat').length,
+    fish: coming.filter((guest) => guest.main_course === 'fish').length,
     allergies: coming.filter((guest) => guest.allergies).length,
   }
 }

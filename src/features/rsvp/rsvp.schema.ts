@@ -1,19 +1,29 @@
 import type { Rule } from 'antd/es/form'
+import { mainCourses } from '@/content/wedding'
 
 /** Mismos límites que los `check` de supabase/migrations */
 export const LIMITS = {
   name: 80,
   allergies: 300,
+  favoriteColor: 40,
   favoriteSong: 150,
   message: 1000,
   companions: 20,
 } as const
+
+/** Mismos valores que el `check` de guests.main_course */
+export type MainCourse = keyof typeof mainCourses
+
+export const isMainCourse = (value: unknown): value is MainCourse =>
+  typeof value === 'string' && Object.hasOwn(mainCourses, value)
 
 export type GuestValues = {
   firstName: string
   lastName: string
   allergies?: string
   needsBus?: boolean
+  mainCourse?: MainCourse
+  favoriteColor?: string
   favoriteSong?: string
 }
 
@@ -50,6 +60,8 @@ export function toPayload(values: RsvpFormValues): RsvpPayload {
       ...(attending && {
         allergies: trimmed(guest.allergies),
         needsBus: guest.needsBus,
+        mainCourse: guest.mainCourse,
+        favoriteColor: trimmed(guest.favoriteColor),
         favoriteSong: trimmed(guest.favoriteSong),
       }),
     })),

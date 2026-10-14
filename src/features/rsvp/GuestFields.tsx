@@ -1,10 +1,16 @@
 import { Form, Input, Radio } from 'antd'
-import { LIMITS, rules } from './rsvp.schema'
+import { mainCourses } from '@/content/wedding'
+import { LIMITS, rules, type MainCourse } from './rsvp.schema'
 
 const busOptions = [
   { label: 'Sí, lo necesito', value: true },
   { label: 'No, gracias', value: false },
 ]
+
+const mainCourseOptions = Object.entries(mainCourses).map(([value, { label }]) => ({
+  label,
+  value: value as MainCourse,
+}))
 
 type FieldsProps = {
   /** Ruta de la persona dentro del formulario: ['primary'] o [field.name] dentro de Form.List */
@@ -49,6 +55,23 @@ export function GuestQuestionFields({ prefix }: FieldsProps) {
           placeholder="Ej.: celiaquía, vegetariano, frutos secos…"
           maxLength={LIMITS.allergies}
         />
+      </Form.Item>
+
+      <Form.Item
+        className="md:col-span-2"
+        label="Plato principal"
+        name={path(prefix, 'mainCourse')}
+        rules={rules.requiredChoice('Elige tu plato principal')}
+      >
+        <Radio.Group vertical className="gap-3" options={mainCourseOptions} />
+      </Form.Item>
+
+      <Form.Item
+        label="Elige tu color favorito"
+        name={path(prefix, 'favoriteColor')}
+        rules={rules.requiredText('Dinos tu color favorito', LIMITS.favoriteColor)}
+      >
+        <Input placeholder="Ej.: verde oliva" maxLength={LIMITS.favoriteColor} />
       </Form.Item>
 
       <Form.Item

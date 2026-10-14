@@ -1,5 +1,6 @@
 import { Table, Tag } from 'antd'
 import type { Guest, RsvpWithGuests } from './admin.service'
+import { mainCourseLabel } from './rsvp.stats'
 
 type GuestsTableProps = { rsvp: RsvpWithGuests; duplicates: Set<string> }
 
@@ -33,6 +34,12 @@ export function GuestsTable({ rsvp, duplicates }: GuestsTableProps) {
           },
           ...(rsvp.attending
             ? [
+                {
+                  title: 'Plato',
+                  dataIndex: 'main_course',
+                  render: (value: string | null) => text(mainCourseLabel(value)),
+                },
+                { title: 'Color', dataIndex: 'favorite_color', render: text },
                 { title: 'Alergias', dataIndex: 'allergies', render: text },
                 { title: 'Autobús', dataIndex: 'needs_bus', render: yesNo },
                 { title: 'Canción', dataIndex: 'favorite_song', render: text },

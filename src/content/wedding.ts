@@ -176,6 +176,19 @@ export const boardingPass = {
   seat: 'Con nosotros',
 }
 
+/** Platos principales a elegir en el RSVP. La clave es lo que se guarda en BD (`guests.main_course`) */
+export const mainCourses = {
+  meat: {
+    label:
+      'Tierno entrecot de lomo alto de ternera a las ascuas de carbón de encina (+300 g), con guarnición de pastel de patatas gratinado y tambor de calabacín relleno de pisto gratinado',
+    short: 'Entrecot',
+  },
+  fish: {
+    label: 'Lubina con salsa de vieiras y langostinos',
+    short: 'Lubina',
+  },
+} as const
+
 export const footer = {
   kind: 'Boda',
   luggage: 'En la maleta solo necesitas traer muchas ganas de celebrar con nosotros',

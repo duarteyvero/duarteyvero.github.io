@@ -1,7 +1,7 @@
 import { downloadCsv, type CsvColumn } from '@/lib/csv'
 import { formatDateTime } from '@/lib/date'
 import type { Guest, RsvpWithGuests } from './admin.service'
-import { fullName, primaryGuest } from './rsvp.stats'
+import { fullName, mainCourseLabel, primaryGuest } from './rsvp.stats'
 
 type PersonRow = { rsvp: RsvpWithGuests; guest: Guest }
 
@@ -25,11 +25,16 @@ const responseOf: CsvColumn<PersonRow> = {
   },
 }
 
+const mainCourse: CsvColumn<PersonRow> = {
+  header: 'Plato principal',
+  value: ({ guest }) => mainCourseLabel(guest.main_course),
+}
+
 export type ExportKind = 'all' | 'catering' | 'bus' | 'songs'
 
 export const exportOptions: { kind: ExportKind; label: string }[] = [
   { kind: 'all', label: 'Todo (una fila por persona)' },
-  { kind: 'catering', label: 'Catering: asistentes y alergias' },
+  { kind: 'catering', label: 'Catering: asistentes, platos y alergias' },
   { kind: 'bus', label: 'Autobús: quién lo necesita' },
   { kind: 'songs', label: 'DJ: canciones' },
 ]
@@ -42,6 +47,8 @@ const exporters: Record<ExportKind, (rsvps: RsvpWithGuests[]) => void> = {
       { header: 'Tipo', value: ({ guest }) => (guest.is_primary ? 'Titular' : 'Acompañante') },
       responseOf,
       { header: 'Asiste', value: ({ rsvp }) => rsvp.attending },
+      mainCourse,
+      { header: 'Color favorito', value: ({ guest }) => guest.favorite_color },
       { header: 'Alergias', value: ({ guest }) => guest.allergies },
       { header: 'Autobús', value: ({ guest }) => guest.needs_bus },
       { header: 'Canción', value: ({ guest }) => guest.favorite_song },
@@ -59,6 +66,7 @@ const exporters: Record<ExportKind, (rsvps: RsvpWithGuests[]) => void> = {
       firstName,
       lastName,
       responseOf,
+      mainCourse,
       { header: 'Alergias / dieta', value: ({ guest }) => guest.allergies },
     ]),
 

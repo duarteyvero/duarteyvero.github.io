@@ -1,4 +1,5 @@
 import { Statistic } from 'antd'
+import { mainCourses } from '@/content/wedding'
 import type { RsvpWithGuests } from './admin.service'
 import { summarize } from './rsvp.stats'
 
@@ -10,11 +11,13 @@ export function RsvpSummary({ rsvps }: { rsvps: RsvpWithGuests[] }) {
     { title: 'Personas que vienen', value: stats.attending },
     { title: 'No pueden venir', value: stats.declined },
     { title: 'Plazas de autobús', value: stats.bus },
+    { title: mainCourses.meat.short, value: stats.meat },
+    { title: mainCourses.fish.short, value: stats.fish },
     { title: 'Con alergias', value: stats.allergies },
   ]
 
   return (
-    <div className="grid grid-cols-2 border-y border-line md:grid-cols-5">
+    <div className="grid grid-cols-2 border-y border-line md:grid-cols-7">
       {items.map(({ title, value }) => (
         <div
           key={title}

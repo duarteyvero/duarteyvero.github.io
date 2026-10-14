@@ -1,4 +1,4 @@
-import type { GuestValues } from '@/features/rsvp/rsvp.schema'
+import { isMainCourse, type GuestValues } from '@/features/rsvp/rsvp.schema'
 import type { AdminRsvpValues, Guest, RsvpWithGuests } from './admin.service'
 
 const toGuestValues = (guest: Guest): GuestValues => ({
@@ -6,6 +6,8 @@ const toGuestValues = (guest: Guest): GuestValues => ({
   lastName: guest.last_name,
   allergies: guest.allergies ?? undefined,
   needsBus: guest.needs_bus ?? undefined,
+  mainCourse: isMainCourse(guest.main_course) ? guest.main_course : undefined,
+  favoriteColor: guest.favorite_color ?? undefined,
   favoriteSong: guest.favorite_song ?? undefined,
 })
 
