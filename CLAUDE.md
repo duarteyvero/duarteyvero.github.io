@@ -42,7 +42,7 @@ No añadir más dependencias sin justificarlo. Antes de instalar una librería, 
 src/
   main.tsx                  # bootstrap mínimo: StrictMode + RouterProvider
   router.tsx                # rutas; /admin con lazy
-  index.css                 # capas, @import tailwind, @theme (tokens), @layer base
+  index.css                 # capas, @import tailwind, @theme (tokens + keyframes), @utility (texturas), @layer base
   theme/
     tokens.ts               # colores/fuentes en JS para antd (espejo de @theme)
     antd.ts                 # baseTheme + darkSectionTheme
@@ -51,17 +51,21 @@ src/
     supabase.ts             # getSupabase(): ÚNICA instancia, creada bajo demanda
     cn.ts                   # clsx + tailwind-merge (conoce los tamaños de texto propios)
     date.ts                 # formatos de fecha en español (Europe/Madrid)
+    calendar.ts             # enlace «Añadir al calendario» (Google Calendar)
+    text.ts                 # normalizeText() y toMrz() (línea de pasaporte)
     csv.ts                  # exportación CSV para Excel
   content/
     wedding.ts              # ÚNICA fuente de verdad: nombres, fecha, textos, horarios, fotos, enlaces
   assets/images/            # fotos en WebP optimizadas; nunca base64 inline
   components/ui/            # primitivas reutilizables sin conocimiento del dominio
-    Section  Container  SectionHeader  Kicker  Heading  Lead  Script
-    ButtonLink  Reveal  Photo  PhotoCard  SplitSection  StatGrid  tone.ts
+    Section  SectionHeader  Kicker  Heading  Lead  Script  ButtonLink  OutlineButton
+    Reveal  Photo  Icon  Field  Postmark  Airmail  Compass  StampCard  Polaroid  tone.ts
   features/
     invitation/
-      InvitationPage.tsx
-      sections/             # Hero, Story, Travels, Proposal, Ring, Countdown, Venue, Schedule, Rsvp, Footer
+      InvitationPage.tsx    # «librito» de 640px centrado + tapa del pasaporte
+      PassportCover.tsx     # tapa que se abre al entrar
+      sections/             # Hero, Story, PassportData, Travels, Proposal, Venue, Schedule,
+                            # Countdown, Rsvp, Footer (+ FlightRoute, DepartureBoard, BoardingPass, Suitcase)
     rsvp/
       LazyRsvpForm.tsx      # carga diferida de antd + formulario
       RsvpForm.tsx          # composición del formulario
@@ -84,6 +88,7 @@ src/
       exports.ts            # CSV de invitados
   hooks/
     useCountdown.ts  useInView.ts  useSession.ts
+    usePassportCover.ts  useScrollLock.ts  useReducedMotion.ts
   types/
     database.ts             # tipos de BD — regenerar con `pnpm db:types`, no editar a mano
 supabase/
@@ -93,48 +98,49 @@ legacy/                     # HTML original: referencia visual, se borra tras va
 netlify.toml
 ```
 
-## 4. Diseño (respetar el estilo actual)
+## 4. Diseño: «pasaporte a nuestra boda»
 
-El `index.html` actual es la **referencia visual**. La migración debe verse igual (o mejor), no reinterpretarse.
+La invitación imita un **pasaporte de viaje** (inspirado en las invitaciones digitales tipo pasaporte): tapa verde que se abre, matasellos, sellos de correos, rayas de correo aéreo, rutas de avión, tarjeta de embarque. `legacy/` es solo referencia de **contenido**, no de estilo.
 
-**Paleta** → tokens de Tailwind en `@theme` (nunca hex sueltos en componentes):
+**Paleta y tipografías** → tokens de Tailwind en `@theme` (nunca hex sueltos en componentes):
 
 ```css
 @theme {
-  --color-paper: #f1ede4;
-  --color-paper2: #e5dfd2;
-  --color-ink: #25261f;
-  --color-muted: #77776e;
-  --color-olive: #56614d;
-  --color-dark: #30382d;
-  --color-white: #fbfaf6;
-  --color-line: rgb(37 38 31 / 0.15);
+  --color-paper: #ffffff; /* fondo principal (con bg-map) */
+  --color-cream: #f7f4ee; /* fondo alterno */
+  --color-outside: #e8ece9; /* alrededor del librito en escritorio */
+  --color-green: #2c4f46; /* color principal: texto, líneas */
+  --color-dark: #264840; /* secciones oscuras (Pedida, RSVP) */
+  --color-coral: #d96f6f; /* acentos: kickers, etiquetas, & */
+  --color-gold: #d8c28e; /* acentos sobre fondo oscuro, tapa */
 
-  --font-serif: 'Cormorant Garamond', serif; /* titulares, números */
-  --font-sans: 'DM Sans', sans-serif; /* cuerpo, peso 300 */
-  --font-script: 'Parisienne', cursive; /* frases manuscritas */
+  --font-display: 'Abril Fatface', serif; /* PASAPORTE, nombres, horas */
+  --font-script: 'Great Vibes', cursive; /* títulos de sección */
+  --font-type: 'Special Elite', monospace; /* kickers, etiquetas, botones */
+  --font-serif: 'Marcellus', serif; /* subtítulos, panel */
+  --font-sans: 'Quicksand', sans-serif; /* cuerpo */
 }
 ```
 
-**Lenguaje visual a conservar**:
+**Lenguaje visual**:
 
-- Titulares grandes en Cormorant, peso 300–400, `letter-spacing` negativo, `line-height` muy apretado (~.82), tamaños con `clamp()`.
-- Kickers/etiquetas: 8–9px, MAYÚSCULAS, tracking amplio (.22em–.45em), color olive o muted.
-- Cuerpo: DM Sans 300, 13–14px, `line-height: 2`.
-- Separadores finos (`border-line`), marcos dobles del hero, círculo decorativo en la intro.
-- Alternancia de fondos: `paper` / `paper2` / `dark` (Pedida y RSVP en oscuro).
-- Animación `reveal`: fade + `translateY(25px)`, 0.9s, al entrar en viewport. Respetar `prefers-reduced-motion`.
-- Responsive: breakpoints equivalentes a 760px y 560px del original (rejillas de 4 → 2 columnas, split → 1 columna).
+- Layout de **una columna de 640px máx.** centrada (como un pasaporte abierto en el móvil); en escritorio, sombra suave sobre `outside`.
+- Títulos de sección manuscritos (`Heading` en `display/xl/lg`); `md` en Marcellus. Kickers a máquina de escribir, MAYÚSCULAS, coral (oro sobre oscuro).
+- Datos tipo pasaporte con `Field` (etiqueta coral + valor a máquina) dentro de `<dl>`.
+- Decoración: `Postmark` (matasellos que se estampa al entrar), `Airmail` entre bloques, `Compass`, rutas de avión. Siempre `aria-hidden`.
+- Texturas que no caben en utilidades (`bg-map`, `bg-airmail`, `stamp-edge`, `mask-scallop`, `mask-notch-*`, `bg-barcode`) se definen **una vez** con `@utility` en `index.css`.
+- Animaciones (`animate-stamp`, `animate-wobble`, `animate-float`, `Reveal`) con `motion-reduce:` siempre; el avión SMIL del hero usa `useReducedMotion()`.
+- Mientras la tapa está cerrada, la invitación está `inert` y sin scroll.
 - **El panel `/admin` usa la misma paleta y tipografías**, pero prioriza legibilidad: más antd "de serie" (tablas, estadísticas) con el tema aplicado.
 
-**Ant Design** debe parecer parte del diseño, no "antd por defecto": `ConfigProvider` con `colorPrimary: olive`, `borderRadius: 0`, `fontFamily: DM Sans`, inputs coherentes con la sección oscura del RSVP.
+**Ant Design** debe parecer parte del diseño, no "antd por defecto": `ConfigProvider` con `colorPrimary: green`, `borderRadius: 0`, `fontFamily: Quicksand`, inputs coherentes con la sección oscura del RSVP.
 Evitar conflictos Tailwind ↔ antd: usar `StyleProvider layer` de `@ant-design/cssinjs` y ordenar `@layer` para que Tailwind pueda sobrescribir.
 
 ## 5. Normas de código
 
 ### DRY y componentización
 
-- **Si un patrón aparece 2 veces, es un componente.** Ya identificados en el HTML: kicker + h2 + lead (6 secciones), bloque foto/texto (Pedida, Anillo), rejilla con bordes (Cuenta atrás, Horarios), tarjetas con foto y pie (Viajes, galería del Botero). En el formulario: **los campos de una persona son el mismo componente (`GuestFields`) para el titular y para cada acompañante**.
+- **Si un patrón aparece 2 veces, es un componente.** Ya identificados: kicker + h2 + lead (`SectionHeader`), dato de pasaporte (`Field`: página de datos, tarjeta de embarque, cierre), matasellos (`Postmark`), iconos (`Icon`). En el formulario: **los campos de una persona son el mismo componente (`GuestFields`) para el titular y para cada acompañante**.
 - **El contenido vive en `content/wedding.ts`**, no en el JSX. Las secciones iteran datos. Cambiar un horario o un texto = tocar un solo fichero.
 - La fecha de la boda se define **una vez** (`2027-07-17T18:30:00+02:00`) y de ahí se derivan hero, cuenta atrás y footer.
 - Variantes con props tipadas (`tone="light" | "dark"`), no copias de componentes. Clases condicionales con `cn()`.
@@ -152,7 +158,7 @@ Evitar conflictos Tailwind ↔ antd: usar `StyleProvider layer` de `@ant-design/
 
 ### Estilos
 
-- Tailwind para todo. Sin CSS modules ni `.css` por componente. `index.css` solo para `@theme`, fuentes y `@layer base`.
+- Tailwind para todo. Sin CSS modules ni `.css` por componente. `index.css` solo para `@theme` (tokens y keyframes), `@utility` (texturas del pasaporte) y `@layer base`.
 - Prohibido `style={{…}}` salvo valores realmente dinámicos (p. ej. `backgroundImage` que viene de datos).
 - Prohibido `!important` (el original lo usa; se corrige desde la raíz).
 - Mobile-first: clases base = móvil, `md:`/`lg:` para escritorio. La mayoría de invitados abrirá la web desde el móvil (WhatsApp).
