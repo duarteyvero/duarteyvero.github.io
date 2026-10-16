@@ -10,6 +10,9 @@ function parts(date: Date) {
     month: get({ month: 'long' }),
     month2: get({ month: '2-digit' }),
     year: get({ year: 'numeric' }),
+    year2: get({ year: '2-digit' }),
+    monthShort: get({ month: 'short' }).replace('.', ''),
+    time: get({ hour: '2-digit', minute: '2-digit', hour12: false }),
   }
 }
 
@@ -29,6 +32,29 @@ export function formatDateShort(date: Date) {
 export function formatDateDots(date: Date) {
   const { day2, month2, year } = parts(date)
   return [day2, month2, year].join('.')
+}
+
+/** 17.07.27 */
+export function formatDateDotsShort(date: Date) {
+  const { day2, month2, year2 } = parts(date)
+  return [day2, month2, year2].join('.')
+}
+
+/** 17072027 (número de pasaporte) */
+export function formatDateCompact(date: Date) {
+  const { day2, month2, year } = parts(date)
+  return `${day2}${month2}${year}`
+}
+
+/** 17 JUL 2027 */
+export function formatDateTicket(date: Date) {
+  const { day2, monthShort, year } = parts(date)
+  return [day2, monthShort.toUpperCase(), year].join(' ')
+}
+
+/** 18:30 h */
+export function formatTime(date: Date) {
+  return `${parts(date).time} h`
 }
 
 /** 17 de julio de 2027 */
