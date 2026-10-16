@@ -71,7 +71,7 @@ export function GuestQuestionFields({ prefix }: FieldsProps) {
         name={path(prefix, 'favoriteColor')}
         rules={rules.requiredText('Dinos tu color favorito', LIMITS.favoriteColor)}
       >
-        <Input placeholder="Ej.: verde oliva" maxLength={LIMITS.favoriteColor} />
+        <Input placeholder="Ej.: morado" maxLength={LIMITS.favoriteColor} />
       </Form.Item>
 
       <Form.Item

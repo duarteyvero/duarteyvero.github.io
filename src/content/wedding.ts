@@ -180,7 +180,7 @@ export const boardingPass = {
 export const mainCourses = {
   meat: {
     label:
-      'Tierno entrecot de lomo alto de ternera a las ascuas de carbón de encina (+300 g), con guarnición de pastel de patatas gratinado y tambor de calabacín relleno de pisto gratinado',
+      'Tierno entrecot de lomo alto de ternera a las ascuas de carbón de encina con pastel de patatas gratinado',
     short: 'Entrecot',
   },
   fish: {
