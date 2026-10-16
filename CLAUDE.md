@@ -64,8 +64,8 @@ src/
     invitation/
       InvitationPage.tsx    # «librito» de 640px centrado + tapa del pasaporte
       PassportCover.tsx     # tapa que se abre al entrar
-      sections/             # Hero, Story, PassportData, Travels, Proposal, Venue, Schedule,
-                            # Countdown, Rsvp, Footer (+ FlightRoute, DepartureBoard, BoardingPass, Suitcase)
+      sections/             # Hero, Story, PassportData, Travels, Proposal, Venue, Schedule, Bus,
+                            # Countdown, Rsvp, Footer (+ FlightRoute, DepartureBoard, BoardingPass, BusTrip, Suitcase)
     rsvp/
       LazyRsvpForm.tsx      # carga diferida de antd + formulario
       RsvpForm.tsx          # composición del formulario
@@ -189,13 +189,15 @@ Sustituye al botón "Confirmar asistencia" (que ahora apunta a `#`). Vive en la 
 
 **Preguntas por persona** (titular y cada acompañante, mismo componente `GuestFields`):
 
-| Campo          | Tipo                                           | Obligatorio |
-| -------------- | ---------------------------------------------- | ----------- |
-| `firstName`    | texto                                          | sí          |
-| `lastName`     | texto                                          | sí          |
-| `allergies`    | texto libre (alergias / intolerancias / dieta) | no          |
-| `needsBus`     | sí / no                                        | sí          |
-| `favoriteSong` | texto ("canción – artista")                    | no          |
+| Campo           | Tipo                                           | Obligatorio |
+| --------------- | ---------------------------------------------- | ----------- |
+| `firstName`     | texto                                          | sí          |
+| `lastName`      | texto                                          | sí          |
+| `allergies`     | texto libre (alergias / intolerancias / dieta) | no          |
+| `mainCourse`    | `meat` (entrecot) / `fish` (lubina)            | sí          |
+| `favoriteColor` | texto (máx. 40)                                | sí          |
+| `needsBus`      | sí / no                                        | sí          |
+| `favoriteSong`  | texto ("canción – artista")                    | no          |
 
 - Validación: nombres con `trim`, longitudes máximas (nombre/apellidos 80, alergias 300, canción 150, mensaje 1000) definidas **una vez** en `rsvp.schema.ts` y replicadas como `check` en la BD.
 - Máximo **20 acompañantes** por respuesta (constante en `rsvp.schema.ts` y `check` en la función SQL).
@@ -216,6 +218,8 @@ message      text null              first_name     text
                                     last_name      text
                                     allergies      text null
                                     needs_bus      boolean null
+                                    main_course    text null    -- 'meat' | 'fish'
+                                    favorite_color text null
                                     favorite_song  text null
                                     created_at     timestamptz
 ```
@@ -238,7 +242,7 @@ Una respuesta (`rsvps`) agrupa al titular y sus acompañantes (`guests`). Si `at
 ## 8. Panel de los novios (`/admin`)
 
 - `RequireAuth` redirige a login si no hay sesión; login con email + contraseña (`supabase.auth.signInWithPassword`). Botón de cerrar sesión.
-- **Resumen** (`Statistic`): respuestas recibidas, personas que asisten, que no asisten, plazas de autobús, nº de personas con alergias.
+- **Resumen** (`Statistic`): respuestas recibidas, personas que asisten, que no asisten, plazas de autobús, entrecots y lubinas, nº de personas con alergias.
 - **Tabla** de respuestas: titular, asistencia, nº acompañantes, fecha; fila expandible con cada persona y sus respuestas. Búsqueda por nombre y filtros (asiste / bus / con alergias).
 - **Listas rápidas**: alergias (persona → alergia, para el catering) y canciones (para el DJ).
 - **Exportar a CSV** (para catering y autobús), generado en cliente sin librerías extra.
