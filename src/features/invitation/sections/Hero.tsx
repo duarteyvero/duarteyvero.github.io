@@ -1,54 +1,63 @@
-import { couple, hero, navLinks, sectionIds, weddingDate } from '@/content/wedding'
-import { formatDateLong } from '@/lib/date'
+import { Compass } from '@/components/ui/Compass'
+import { Postmark } from '@/components/ui/Postmark'
+import { Reveal } from '@/components/ui/Reveal'
+import { couple, hero, monogram, navLinks, sectionIds, weddingDate } from '@/content/wedding'
+import { formatDateDotsShort } from '@/lib/date'
+import { FlightRoute } from './FlightRoute'
 
 export function Hero() {
   return (
-    <header className="relative flex h-[82svh] min-h-[560px] items-center justify-center overflow-hidden bg-paper bg-[radial-gradient(circle_at_50%_35%,rgb(86_97_77/.07),transparent_45%)] px-6 sm:h-[88svh] sm:min-h-[620px] lg:h-[92svh] lg:min-h-[720px]">
-      <Frames />
+    <header className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-paper bg-map px-6 pt-[70px] pb-[90px] text-center text-green">
+      <FlightRoute />
+      <Compass className="absolute bottom-[60px] -left-[18px] w-[84px] sm:w-[110px]" />
+      <Postmark
+        text={hero.postmark}
+        className="absolute top-[52px] right-2 w-[118px] text-coral [--stamp-rotate:-14deg] sm:right-4 sm:w-[150px]"
+      >
+        <text x="80" y="88" textAnchor="middle" className="fill-current font-display text-[22px]">
+          {formatDateDotsShort(weddingDate)}
+        </text>
+      </Postmark>
 
       <nav
         aria-label="Secciones"
-        className="absolute inset-x-0 top-0 z-10 hidden justify-center gap-[30px] px-[5vw] py-[23px] text-micro tracking-[.22em] text-ink uppercase md:flex"
+        className="absolute inset-x-0 top-0 z-10 hidden justify-center gap-6 py-5 font-type text-micro tracking-[.18em] uppercase sm:flex"
       >
         {navLinks.map(({ href, label }) => (
-          <a key={href} href={href} className="transition-colors hover:text-olive">
+          <a key={href} href={href} className="transition-colors hover:text-coral">
             {label}
           </a>
         ))}
       </nav>
 
-      <div className="relative z-10 flex flex-col items-center pb-[90px] text-center md:pb-[8vw]">
-        <p className="mb-7 text-kicker tracking-[.45em] text-olive uppercase">{hero.eyebrow}</p>
-        <h1 className="m-0 font-serif text-[clamp(62px,18vw,100px)] leading-[.72] font-light tracking-[-.045em] text-shadow-[0_3px_22px_rgb(0_0_0/.1)] sm:text-[clamp(72px,11vw,155px)]">
-          <span className="block">
-            {couple.first} <i className="text-[.55em]">&amp;</i>
-          </span>
-          <span className="block">{couple.second}</span>
+      <Reveal className="relative">
+        <p className="font-display text-[clamp(46px,14vw,86px)] leading-none tracking-[.06em] uppercase">
+          {hero.title}
+        </p>
+        <p className="mt-6 mb-1.5 font-type text-[clamp(17px,5vw,24px)] tracking-[.25em] uppercase">
+          {hero.eyebrow}
+        </p>
+        <h1 className="m-0 font-display text-[clamp(52px,15vw,92px)] leading-none font-normal">
+          {couple.first} <span className="text-coral">&amp;</span> {couple.second}
         </h1>
-        <p className="mt-[38px] font-serif text-lg tracking-[.28em] text-olive">
-          <time dateTime={weddingDate.toISOString()}>{formatDateLong(weddingDate)}</time>
+        <p
+          aria-hidden
+          className="mx-auto mt-5 flex size-[84px] items-center justify-center rounded-full border-2 border-green font-display text-[30px]"
+        >
+          {monogram}
         </p>
-        <p className="mt-[25px] font-script text-[28px] text-olive sm:text-[32px]">
-          {hero.tagline}
-        </p>
-      </div>
+      </Reveal>
 
       <a
         href={`#${sectionIds.story}`}
-        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 border-b border-olive/40 pb-1 text-micro tracking-[.28em] text-olive uppercase lg:bottom-14"
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 font-type text-micro tracking-[.3em] uppercase"
       >
-        {hero.scrollLabel} <span aria-hidden>↓</span>
+        {hero.scrollLabel}
+        <span
+          aria-hidden
+          className="block h-[34px] w-[1.5px] animate-float bg-green/50 motion-reduce:animate-none"
+        />
       </a>
     </header>
-  )
-}
-
-/** Doble marco fino del hero */
-function Frames() {
-  return (
-    <div aria-hidden className="pointer-events-none">
-      <div className="absolute inset-[18px] border border-olive/18 lg:inset-7" />
-      <div className="absolute inset-[30px] border border-olive/9 lg:inset-[42px]" />
-    </div>
   )
 }
