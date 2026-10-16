@@ -21,7 +21,7 @@ export function Countdown() {
   const progress = Math.min(1, Math.max(0, 1 - parts.days / countdown.flightDays))
 
   return (
-    <Section spacing="compact" aria-labelledby="countdown-title">
+    <Section background="cream" spacing="compact" aria-labelledby="countdown-title">
       <Reveal>
         <Kicker>{countdown.kicker}</Kicker>
         <h2

@@ -1,6 +1,7 @@
 import { Airmail } from '@/components/ui/Airmail'
 import { usePassportCover } from '@/hooks/usePassportCover'
 import { PassportCover } from './PassportCover'
+import { Bus } from './sections/Bus'
 import { Countdown } from './sections/Countdown'
 import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
@@ -34,6 +35,7 @@ export function InvitationPage() {
           <Airmail />
           <Venue />
           <Schedule />
+          <Bus />
           <Countdown />
           <Rsvp />
           <Airmail />

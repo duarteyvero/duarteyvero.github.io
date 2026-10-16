@@ -62,6 +62,15 @@ const icons = {
       </>
     ),
   },
+  bus: {
+    viewBox: '0 0 32 32',
+    body: (
+      <>
+        <rect x="5" y="4" width="22" height="20" rx="3" />
+        <path d="M5 15h22M5 9h22M9 19h2M21 19h2M8 24v3M24 24v3" />
+      </>
+    ),
+  },
   music: {
     viewBox: '0 0 32 32',
     body: (

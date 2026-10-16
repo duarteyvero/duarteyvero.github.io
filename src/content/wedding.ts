@@ -28,6 +28,7 @@ export const sectionIds = {
   story: 'historia',
   venue: 'botero',
   schedule: 'dia',
+  bus: 'autobus',
   rsvp: 'rsvp',
 } as const
 
@@ -139,6 +140,25 @@ export const schedule = {
     { time: '21:00', label: 'Cena', icon: 'dinner' },
     { time: '23:00', label: 'Fiesta', icon: 'music' },
   ] satisfies { time: string; label: string; icon: IconName }[],
+}
+
+const busStop = {
+  name: 'Plaza de Castilla',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Plaza+de+Castilla+Madrid',
+}
+
+export const bus = {
+  kicker: 'Traslados',
+  title: 'Autobús',
+  lead: 'Habrá autobús de ida y vuelta para que nadie tenga que preocuparse por el coche: disfruta de la fiesta, que nosotros te llevamos.',
+  stop: busStop,
+  trips: [
+    { label: 'Ida', from: busStop.name, to: venue.name, time: 'Por confirmar' },
+    { label: 'Vuelta', from: venue.name, to: busStop.name, time: 'Por confirmar' },
+  ],
+  note: 'Cuando confirmes tu asistencia, dinos si vas a usarlo para reservarte plaza.',
+  stopLink: 'Ver punto de salida',
+  rsvpLink: 'Reservar plaza',
 }
 
 export const rsvp = {
