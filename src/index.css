@@ -5,32 +5,135 @@
 
 /* Mantener sincronizado con src/theme/tokens.ts (antd necesita los valores en JS) */
 @theme {
-  --color-paper: #f1ede4;
-  --color-paper2: #e5dfd2;
-  --color-ink: #25261f;
-  --color-muted: #77776e;
-  --color-body: #686861;
-  --color-olive: #56614d;
-  --color-dark: #30382d;
-  --color-sage: #d6ddce;
-  --color-mist: #d9ddd4;
-  --color-white: #fbfaf6;
-  --color-line: rgb(37 38 31 / 0.15);
+  --color-paper: #ffffff;
+  --color-cream: #f7f4ee;
+  --color-outside: #e8ece9;
+  --color-ink: #1f2a27;
+  --color-muted: #6b7f79;
+  --color-body: #3d5a53;
+  --color-green: #2c4f46;
+  --color-dark: #264840;
+  --color-coral: #d96f6f;
+  --color-gold: #d8c28e;
+  --color-mist: #dfe8e4;
+  --color-white: #ffffff;
+  --color-line: rgb(44 79 70 / 0.18);
 
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-sans: 'DM Sans', sans-serif;
-  --font-script: 'Parisienne', cursive;
+  --font-display: 'Abril Fatface', serif; /* PASAPORTE, nombres, horas */
+  --font-serif: 'Marcellus', serif; /* subtítulos, panel */
+  --font-sans: 'Quicksand', sans-serif; /* cuerpo */
+  --font-script: 'Great Vibes', cursive; /* títulos de sección */
+  --font-type: 'Special Elite', monospace; /* etiquetas tipo máquina de escribir */
 
-  --text-micro: 8px;
-  --text-kicker: 9px;
-  --text-heading-display: clamp(65px, 9vw, 110px);
-  --text-heading-xl: clamp(58px, 7vw, 92px);
-  --text-heading-lg: clamp(50px, 6vw, 78px);
-  --text-heading-md: 43px;
+  --text-micro: 11px;
+  --text-kicker: 13px;
+  --text-heading-display: clamp(62px, 17vw, 100px);
+  --text-heading-xl: clamp(56px, 15vw, 90px);
+  --text-heading-lg: clamp(42px, 11vw, 64px);
+  --text-heading-md: clamp(26px, 7vw, 36px);
 
   --breakpoint-sm: 35rem; /* 560px */
   --breakpoint-md: 47.5rem; /* 760px */
   --breakpoint-lg: 56.25rem; /* 900px */
+
+  --animate-stamp: stamp 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
+  --animate-wobble: wobble 5s ease-in-out infinite;
+  --animate-float: float 2.6s ease-in-out infinite;
+
+  @keyframes stamp {
+    from {
+      opacity: 0;
+      transform: scale(2.4) rotate(-30deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(var(--stamp-rotate, -12deg));
+    }
+  }
+  @keyframes wobble {
+    0%,
+    100% {
+      transform: rotate(-14deg);
+    }
+    50% {
+      transform: rotate(18deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+/* Texturas del pasaporte: no se pueden expresar con utilidades sueltas */
+
+/* Cuadrícula de mapa muy suave */
+@utility bg-map {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%232c4f46' stroke-opacity='.07'%3E%3Cpath d='M0 60h240M0 120h240M0 180h240M120 0v240M60 0c-20 80-20 160 0 240M180 0c20 80 20 160 0 240'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Rayas de sobre de correo aéreo */
+@utility bg-airmail {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-coral) 0 14px,
+    var(--color-white) 14px 20px,
+    var(--color-green) 20px 34px,
+    var(--color-white) 34px 40px
+  );
+}
+
+/* Borde perforado de sello de correos (el centro lo tapa la foto) */
+@utility stamp-edge {
+  background: radial-gradient(
+      circle at 7px 7px,
+      transparent 4.5px,
+      var(--color-white) 5px
+    ) -7px -7px /
+    14px 14px;
+}
+
+/* Bordes ondulados arriba y abajo */
+@utility mask-scallop {
+  --scallop:
+    radial-gradient(14px at 50% 0, #0000 98%, #000) 50% 0 / 28px 51% repeat-x,
+    radial-gradient(14px at 50% 100%, #0000 98%, #000) 50% 100% / 28px 51% repeat-x;
+  -webkit-mask: var(--scallop);
+  mask: var(--scallop);
+}
+
+/* Muescas de la tarjeta de embarque (lado derecho / izquierdo) */
+@utility mask-notch-r {
+  --notch:
+    radial-gradient(circle 11px at 100% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 11px at 100% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  -webkit-mask: var(--notch);
+  mask: var(--notch);
+}
+@utility mask-notch-l {
+  --notch:
+    radial-gradient(circle 11px at 0 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 11px at 0 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  -webkit-mask: var(--notch);
+  mask: var(--notch);
+}
+
+/* Código de barras de la tarjeta de embarque */
+@utility bg-barcode {
+  background-image: repeating-linear-gradient(
+    0deg,
+    var(--color-green) 0 2px,
+    transparent 2px 4px,
+    var(--color-green) 4px 7px,
+    transparent 7px 9px,
+    var(--color-green) 9px 10px,
+    transparent 10px 13px
+  );
 }
 
 @layer base {
@@ -45,6 +148,6 @@
   }
 
   body {
-    @apply bg-paper font-sans font-light text-ink antialiased;
+    @apply bg-outside font-sans text-green antialiased;
   }
 }

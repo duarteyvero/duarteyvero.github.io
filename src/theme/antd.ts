@@ -4,12 +4,12 @@ import { colors, fonts } from './tokens'
 /** Tema base: toda la app (panel /admin incluido) */
 export const baseTheme: ThemeConfig = {
   token: {
-    colorPrimary: colors.olive,
-    colorLink: colors.olive,
+    colorPrimary: colors.green,
+    colorLink: colors.green,
     colorText: colors.ink,
     colorTextSecondary: colors.muted,
-    colorBgLayout: colors.paper,
-    colorBorderSecondary: 'rgba(37, 38, 31, 0.1)',
+    colorBgLayout: colors.cream,
+    colorBorderSecondary: 'rgba(44, 79, 70, 0.1)',
     fontFamily: fonts.sans,
     borderRadius: 0,
     borderRadiusLG: 0,
@@ -17,7 +17,7 @@ export const baseTheme: ThemeConfig = {
   },
   components: {
     Statistic: { contentFontSize: 44 },
-    Table: { headerBg: colors.paper, rowHoverBg: colors.paper },
+    Table: { headerBg: colors.cream, rowHoverBg: colors.cream },
   },
 }
 
@@ -25,11 +25,11 @@ export const baseTheme: ThemeConfig = {
 export const darkSectionTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
-    colorPrimary: colors.sage,
+    colorPrimary: colors.gold,
     colorText: colors.white,
-    colorTextPlaceholder: 'rgba(251, 250, 246, 0.4)',
+    colorTextPlaceholder: 'rgba(255, 255, 255, 0.45)',
     colorTextLabel: colors.mist,
-    colorBorder: 'rgba(251, 250, 246, 0.35)',
+    colorBorder: 'rgba(255, 255, 255, 0.35)',
     colorBgContainer: 'transparent',
     colorError: '#f0b4a8',
     fontSize: 15,

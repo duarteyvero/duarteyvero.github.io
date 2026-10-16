@@ -41,13 +41,13 @@ export function GuestsTable({ rsvp, duplicates }: GuestsTableProps) {
         ]}
       />
       {rsvp.message && (
-        <blockquote className="m-0 border-l-2 border-olive/40 pl-4 font-serif text-lg text-body italic">
+        <blockquote className="m-0 border-l-2 border-green/40 pl-4 font-serif text-lg text-body italic">
           “{rsvp.message}”
         </blockquote>
       )}
       {rsvp.admin_note && (
         <p className="m-0 text-sm text-muted">
-          <span className="mr-2 text-micro tracking-[.25em] text-olive uppercase">
+          <span className="mr-2 text-micro tracking-[.25em] text-green uppercase">
             Nota privada
           </span>
           {rsvp.admin_note}

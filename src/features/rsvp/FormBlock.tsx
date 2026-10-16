@@ -19,8 +19,8 @@ export function FormBlock({ title, action, tone = 'dark', children }: FormBlockP
         <h3
           id={titleId}
           className={cn(
-            'm-0 text-kicker font-normal tracking-[.38em] uppercase',
-            tone === 'dark' ? 'text-sage' : 'text-olive',
+            'm-0 font-type text-kicker font-normal tracking-[.25em] uppercase',
+            tone === 'dark' ? 'text-gold' : 'text-green',
           )}
         >
           {title}

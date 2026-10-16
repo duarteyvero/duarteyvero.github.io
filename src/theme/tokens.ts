@@ -1,17 +1,18 @@
 /** Mantener sincronizado con el bloque @theme de src/index.css */
 export const colors = {
-  paper: '#f1ede4',
-  paper2: '#e5dfd2',
-  ink: '#25261f',
-  muted: '#77776e',
-  olive: '#56614d',
-  dark: '#30382d',
-  sage: '#d6ddce',
-  mist: '#d9ddd4',
-  white: '#fbfaf6',
+  paper: '#ffffff',
+  cream: '#f7f4ee',
+  ink: '#1f2a27',
+  muted: '#6b7f79',
+  green: '#2c4f46',
+  dark: '#264840',
+  coral: '#d96f6f',
+  gold: '#d8c28e',
+  mist: '#dfe8e4',
+  white: '#ffffff',
 } as const
 
 export const fonts = {
-  sans: "'DM Sans', sans-serif",
-  serif: "'Cormorant Garamond', serif",
+  sans: "'Quicksand', sans-serif",
+  serif: "'Marcellus', serif",
 } as const
