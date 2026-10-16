@@ -8,8 +8,8 @@ export function Kicker({ children, tone = 'light', className }: KickerProps) {
   return (
     <p
       className={cn(
-        'mb-5 text-kicker tracking-[.38em] uppercase',
-        tone === 'light' ? 'text-olive' : 'text-sage',
+        'mb-2 font-type text-kicker tracking-[.22em] uppercase',
+        tone === 'light' ? 'text-coral' : 'text-gold',
         className,
       )}
     >

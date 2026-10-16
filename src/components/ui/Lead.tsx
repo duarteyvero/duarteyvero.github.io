@@ -13,7 +13,7 @@ export function Lead({ children, tone = 'light', align = 'center', className }: 
   return (
     <p
       className={cn(
-        'mt-[30px] max-w-[620px] text-sm leading-loose',
+        'mt-5 max-w-[460px] text-base leading-relaxed',
         tone === 'light' ? 'text-body' : 'text-mist',
         align === 'center' && 'mx-auto',
         className,

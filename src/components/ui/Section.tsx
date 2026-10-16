@@ -2,14 +2,15 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/cn'
 
 const backgrounds = {
-  paper: 'bg-paper text-ink',
-  paper2: 'bg-paper2 text-ink',
+  /** Blanco con cuadrícula de mapa */
+  paper: 'bg-paper bg-map text-green',
+  cream: 'bg-cream text-green',
   dark: 'bg-dark text-white',
 } as const
 
 const spacings = {
-  default: 'px-6 py-[115px]',
-  compact: 'px-6 py-[90px]',
+  default: 'px-6 py-[90px]',
+  compact: 'px-6 py-[70px]',
   none: '',
 } as const
 
@@ -26,7 +27,12 @@ export function Section({
 }: SectionProps) {
   return (
     <section
-      className={cn('relative', backgrounds[background], spacings[spacing], className)}
+      className={cn(
+        'relative overflow-hidden text-center',
+        backgrounds[background],
+        spacings[spacing],
+        className,
+      )}
       {...props}
     />
   )
